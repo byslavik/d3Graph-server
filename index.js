@@ -55,12 +55,16 @@ router.route('/currency')
     .post(function(req, res) {
         console.log(req.body);
         let newArray = [];
-        let item = JSON.parse(req.body.item)
+        let item = JSON.parse(req.body.item);
         item.map(function(item) {
+          let date = new Date(item.Date);
+          let rate = item.Cur_OfficialRate;
+          let denominateDate = new Date('2016-01-02');
             let newItem = {
                 "Cur_ID": item.Cur_ID,
-                "Date": new Date(item.Date),
-                "Cur_OfficialRate": item.Cur_OfficialRate
+                "Date": date,
+                "Cur_OfficialRate": rate,
+                "denominatedRate": denominateDate > date ? rate/10000 : rate
             }
 
             newArray.push(newItem);
@@ -87,6 +91,7 @@ router.route('/currency/:id/:from/:to')
         }).sort({"Date": 1})
 
     });
+
 
 
 // more routes for our API will happen here
