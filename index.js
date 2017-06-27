@@ -48,57 +48,7 @@ router.get('/', function(req, res) {
     res.json({ message: 'hooray! welcome to our api!' });
 });
 
-router.route('/langvar')
 
-    .post(function(req, res) {
-        let item = {
-            "key": req.body.key,
-            "lang": req.body.lang,
-            "value": req.body.value
-        }
-
-        console.log(item);
-        var langVar = new LangVar(item);
-
-        langVar.save(function(err) {
-            if (err){
-                res.send(err);
-            }
-
-            console.log('saved');
-            res.json({ message: 'Variable created!' });
-
-        });
-
-    });
-
-router.route('/langvar/:lang/:key')
-    .get(function(req, res) {
-        console.log('lets find smth', req.params.lang, req.params.key);
-
-        LangVar.find({ "lang" : req.params.lang, "key": req.params.key },
-            function(err, lang) {
-                if (err){
-                    res.send(err);
-                }
-
-                res.json(lang);
-            });
-    });
-
-  router.route('/slider/:lang/:sliderId')
-      .get(function(req, res) {
-          console.log('lets find smth', req.params.lang, req.params.sliderId);
-
-          Slide.find({ "lang" : req.params.lang, "sliderId": req.params.sliderId },
-              function(err, slide) {
-                  if (err){
-                      res.send(err);
-                  }
-
-                  res.json(slide);
-              });
-      });
 
 router.route('/currency')
 
@@ -122,123 +72,22 @@ router.route('/currency')
                 res.json({ message: 'item created!' });
             });
 
-            
+
 
 
     });
 router.route('/currency/:id/:from/:to')
     .get(function(req, res) {
-        
-        Currency.find({"Cur_ID": req.params.id, "Date": {"$gte": new Date(req.params.from), $lte: new Date(req.params.to)}}, function(err, currency) {
+
+        Currency.find({"Cur_ID": req.params.id, "Date": {"$gte": new Date(req.params.from), $lte: new Date(req.params.to)}}).sort({"Date": 1}, function(err, currency) {
             if (err){
                 res.send(err);
             }
             res.json(currency);
         })
-        
+
     });
 
-router.route('/articles/:lang/:name')
-
-    .get(function(req, res) {
-        Article.findOne({ "lang" : req.params.lang, "alias": req.params.name }, function(err, article) {
-            if (err){
-                res.send(err);
-            }
-            res.json(article);
-        });
-    });
-
-
-router.route('/lectures/:lang')
-
-    .get(function(req, res) {
-        console.log('lets find lectures with', req.params.lang);
-        Lecture.aggregate([
-            { $match: {
-                "lang": req.params.lang
-            }},
-            { $project: {
-                theme: 1,
-                subject: 1,
-                avatar: 1,
-                alias: 1,
-                name: 1,
-                speakers: 1,
-                youtubeEmbedLink: 1,
-                style: 1,
-                order: 1
-            }},
-            { $sort: {
-                "order": 1
-            }}
-        ], function (err, result) {
-            if (err) {
-                res.send(err);
-                return;
-            }
-             res.json(result);
-        });
-    });
-
-router.route('/lectures/:lang/:name')
-
-    .get(function(req, res) {
-        Lecture.findOne({ "lang" : req.params.lang, "alias": req.params.name }, function(err, lecture) {
-            if (err){
-                res.send(err);
-            }
-            res.json(lecture);
-        });
-    });
-
-
-router.route('/htasks/:lang')
-
-    .get(function(req, res) {
-        console.log('lets find htasks with', req.params.lang);
-        Htask.aggregate([
-            { $match: {
-                "lang": req.params.lang,
-                "noDisplay": false
-            }},
-            { $project: {
-                theme: 1,
-                subject: 1,
-                sub: 1,
-                slogan: 1,
-                techs: 1,
-                avatar: 1,
-                alias: 1,
-                name: 1,
-                speakers: 1,
-                style: 1,
-                order: 1,
-                noDisplay: 1
-            }},
-            { $sort: {
-                "order": 1
-            }}
-        ], function (err, result) {
-            if (err) {
-                res.send(err);
-                return;
-            }
-             res.json(result);
-        });
-    });
-
-
-router.route('/htasks/:lang/:name')
-
-    .get(function(req, res) {
-        Htask.findOne({ "lang" : req.params.lang, "alias": req.params.name }, function(err, hTask) {
-            if (err){
-                res.send(err);
-            }
-            res.json(hTask);
-        });
-    });
 
 // more routes for our API will happen here
 
