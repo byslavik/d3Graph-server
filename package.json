@@ -1,0 +1,23 @@
+{
+  "name": "sciencehit-server",
+  "version": "1.0.0",
+  "description": "sciencehit-server",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {},
+  "license": "(ISC OR GPL-3.0)",
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.1",
+    "express": "^4.14.0",
+    "mongoose": "^4.7.0",
+    "q": "^1.4.1"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "7.1.0",
+    "npm": "3.10.9"
+  }
+}
