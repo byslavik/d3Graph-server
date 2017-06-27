@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var currencyShema = new Schema({
   "Cur_ID": Number,
   "Date": Date,
-  "Cur_OfficialRate": Number
+  "Cur_OfficialRate": Number,
+  "denominatedRate": Number
 });
 
 var Currency = mongoose.model('Currency', currencyShema);
