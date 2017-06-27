@@ -79,12 +79,12 @@ router.route('/currency')
 router.route('/currency/:id/:from/:to')
     .get(function(req, res) {
 
-        Currency.find({"Cur_ID": req.params.id, "Date": {"$gte": new Date(req.params.from), $lte: new Date(req.params.to)}}).sort({"Date": 1}, function(err, currency) {
+        Currency.find({"Cur_ID": req.params.id, "Date": {"$gte": new Date(req.params.from), $lte: new Date(req.params.to)}}, function(err, currency) {
             if (err){
                 res.send(err);
             }
             res.json(currency);
-        })
+        }).sort({"Date": 1})
 
     });
 
