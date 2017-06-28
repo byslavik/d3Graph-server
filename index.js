@@ -59,7 +59,7 @@ router.route('/currency')
         item.map(function(item) {
           let date = new Date(item.Date);
           let rate = item.Cur_OfficialRate;
-          let denominateDate = new Date('2016-01-02');
+          let denominateDate = new Date('2016-06-30');
             let newItem = {
                 "Cur_ID": item.Cur_ID,
                 "Date": date,
