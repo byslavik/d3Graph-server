@@ -64,7 +64,7 @@ router.route('/currency')
                 "Cur_ID": item.Cur_ID,
                 "Date": date,
                 "Cur_OfficialRate": rate,
-                "denominatedRate": denominateDate > date ? rate/10000 : rate
+                "denominatedRate": denominateDate >= date ? rate/10000 : rate
             }
 
             newArray.push(newItem);
